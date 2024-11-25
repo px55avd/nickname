@@ -1,5 +1,10 @@
-<?php
-include("./Database.php");// Inclure la classe Database
+<?php 
+
+include("./Database.php");
+
+$db = new Database();
+$sections = $db->getAllSections();
+
 ?>
 
 <!DOCTYPE html>
@@ -40,35 +45,8 @@ include("./Database.php");// Inclure la classe Database
     <div class="container">
         <div class="user-body">
             
-<?php
-require_once 'Database_updated.php'; 
 
-// Vérifier si le formulaire est soumis
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Récupérer les données du formulaire
-    $genre = $_POST['genre'] ?? '';
-    $firstName = $_POST['firstName'] ?? '';
-    $name = $_POST['name'] ?? '';
-    $nickName = $_POST['nickName'] ?? '';
-    $origin = $_POST['origin'] ?? '';
-    $section = $_POST['section'] ?? '';
-
-    // Vérifier que tous les champs obligatoires sont remplis
-    if ($genre && $firstName && $name && $nickName && $origin && $section) {
-        $db = new Database(); // Créer une instance de la base de données
-
-        // Insérer les données
-        if ($db->insertTeacher($firstName, $name, $nickName, $origin, $genre, $section)) {
-            echo "<p>Enseignant ajouté avec succès !</p>";
-        } else {
-            echo "<p>Erreur lors de l'ajout de l'enseignant.</p>";
-        }
-    } else {
-        echo "<p>Veuillez remplir tous les champs.</p>";
-    }
-}
-?>
-<form action="addTeacher.php" method="post" id="form">
+<form action="./checkAddTeacher.php" method="post" id="form">
 
                 <h3>Ajout d'un enseignant</h3>
                 <p>
@@ -97,8 +75,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <label style="display: none" for="section"></label>
                     <select name="section" id="section">
                         <option value="">Section</option>
-                        <option value="info">Informatique</option>
-                        <option value="bois">Bois</option>
+                        <?php 
+                            $html = "";
+                            foreach($sections as $section) {
+
+                                $html .= "<option value=" . $section["idSection"] .  ">" . $section["secName"] . "</option>";
+                            }
+                            echo $html;
+                        ?>
+
                     </select>
                 </p>
                 <p>

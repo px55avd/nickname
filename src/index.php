@@ -68,10 +68,10 @@ $teachers = $db->getAllTeachers();
                         $html .= "<td>" . $teacher["teaName"] . " " .  $teacher["teaFirstname"] . "</td>";// rajout du prénom et nom
                         $html .= "<td>" . $teacher["teaNickname"] . "</td>";// rajout du nickname
                         $html .= "<td class=\"containerOptions\">";
-                        $html .= "<a href=\"#\">";
-                        $html .= "<img height=\"20em\" src=\"./img/edit.png\" alt=\"edit\">";
+                        $html .= "<a href=\"./updateTeacher.php?idteacher=" . $teacher["idTeacher"] . "\">";
+                        $html .= "<img height=\"20em\" src=\"./img/edit.png\" alt=\"edit\>";
                         $html .= "</a>";
-                        $html .= "<a href=\"javascript:confirmDelete()\">";
+                        $html .= "<a onClick=\"return confirm('Êtes-vous sûr de vouloir supprimer cet enseignant?');\" href=\"./deleteTeacher.php?idteacher=" . $teacher["idTeacher"] . "\">";
                         $html .= "<img height=\"20em\" src=\"./img/delete.png\" alt=\"delete\">";
                         $html .= "</a>";
                         $html .= "<a href=\"./detailTeacher.php?idTeacher=" . $teacher["idTeacher"]."\">";// ajout dans l'url dans l'id teacher avec un POST

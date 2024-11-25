@@ -58,10 +58,6 @@ var_dump($section);
                 }else{
                    echo '<img style="margin-left: 1vw;" height="20em" src="./img/femelle.png" alt="femelle symbole">';
                 }
-                    
-                
-                
-                
                 ?>
                 
             </h3>

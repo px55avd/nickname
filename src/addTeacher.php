@@ -1,3 +1,12 @@
+<?php 
+
+include("./Database.php");
+
+$db = new Database();
+$sections = $db->getAllSections();
+
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -35,15 +44,16 @@
 
     <div class="container">
         <div class="user-body">
-            <form action="#" method="post" id="form">
+            
+
+<form action="./checkAddTeacher.php" method="post" id="form">
+
                 <h3>Ajout d'un enseignant</h3>
                 <p>
                     <input type="radio" id="genre1" name="genre" value="M" checked>
                     <label for="genre1">Homme</label>
                     <input type="radio" id="genre2" name="genre" value="F">
                     <label for="genre2">Femme</label>
-                    <input type="radio" id="genre3" name="genre" value="A">
-                    <label for="genre3">Autre</label>
                 </p>
                 <p>
                     <label for="firstName">Nom :</label>
@@ -65,8 +75,15 @@
                     <label style="display: none" for="section"></label>
                     <select name="section" id="section">
                         <option value="">Section</option>
-                        <option value="info">Informatique</option>
-                        <option value="bois">Bois</option>
+                        <?php 
+                            $html = "";
+                            foreach($sections as $section) {
+
+                                $html .= "<option value=" . $section["idSection"] .  ">" . $section["secName"] . "</option>";
+                            }
+                            echo $html;
+                        ?>
+
                     </select>
                 </p>
                 <p>
