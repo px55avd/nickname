@@ -186,6 +186,28 @@ public function deleteTeacher($idTeacher) {
 
 
 
+
+
+public function updateTeacher($idTeacher, $firstName, $name, $nickname, $origin, $gender, $section) {
+    $query = "UPDATE t_teacher 
+              SET teaFirstname = :firstName, teaName = :name, teaGender = :gender, teaNickname = :nickname, teaOrigine = :origin, fkSection = :section
+              WHERE idTeacher = :idTeacher";
+
+    $binds = [
+        ':idTeacher' => $idTeacher,
+        ':firstName' => $firstName,
+        ':name' => $name,
+        ':gender' => $gender,
+        ':nickname' => $nickname,
+        ':origin' => $origin,
+        ':section' => $section
+    ];
+
+    return $this->queryPrepareExecute($query, $binds);
+}
+
+
+
     // + tous les autres m�thodes dont vous aurez besoin pour la suite (insertTeacher ... etc)
  }
 

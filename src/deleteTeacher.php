@@ -5,7 +5,7 @@ if (!file_exists('./Database.php')) {
 include('./Database.php');
 
 //id teacher
-$id = $_GET["idteacher"];
+$id = $_GET["idTeacher"];
 
 $db = new Database(); // Créer une instance de la base de données
 $db->deleteTeacher($id);

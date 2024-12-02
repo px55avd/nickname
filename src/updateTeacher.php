@@ -5,6 +5,8 @@ include("./Database.php");
 $db = new Database();
 $sections = $db->getAllSections();
 
+$teacher = $db->getOneTeacher($_GET["idTeacher"]);
+var_dump($teacher);
 ?>
 
 <!DOCTYPE html>
@@ -46,30 +48,31 @@ $sections = $db->getAllSections();
         <div class="user-body">
             
 
-<form action="./checkAddTeacher.php" method="post" id="form">
+            <form action="./checkUpdateteacher.php" method="post" id="form">
 
-                <h3>Ajout d'un enseignant</h3>
-                <p>
-                    <input type="radio" id="genre1" name="genre" value="M" checked>
+                <h3>Mise à jour d'un enseignant</h3>
+                <input type="hidden" name="idTeacher" value="<?php echo htmlspecialchars($teacher["idTeacher"]); ?>">
+                <p>             
+                    <input type="radio" id="genre1" name="genre" value="M" <?php if ($teacher["teaGender"] === "M") { echo "checked"; } ?> >
                     <label for="genre1">Homme</label>
-                    <input type="radio" id="genre2" name="genre" value="F">
+                    <input type="radio" id="genre2" name="genre" value="F" <?php if ($teacher["teaGender"] === "F") { echo "checked"; } ?> >
                     <label for="genre2">Femme</label>
                 </p>
                 <p>
-                    <label for="firstName">Nom :</label>
-                    <input type="text" name="firstName" id="firstName" value="">
+                    <label for="firstName">Prénom  :</label>
+                    <input type="text" name="firstName" id="firstName" value="<?= $teacher["teaFirstname"] ?>">
                 </p>
                 <p>
-                    <label for="name">Prénom :</label>
-                    <input type="text" name="name" id="name" value="">
+                    <label for="name">Nom :</label>
+                    <input type="text" name="name" id="name" value="<?= $teacher["teaName"] ?>">
                 </p>
                 <p>
                     <label for="nickName">Surnom :</label>
-                    <input type="text" name="nickName" id="nickName" value="">
+                    <input type="text" name="nickName" id="nickName" value="<?= $teacher["teaNickname"] ?>">
                 </p>
                 <p>
                     <label for="origin">Origine :</label>
-                    <textarea name="origin" id="origin"></textarea>
+                    <textarea name="origin" id="origin"><?= $teacher["teaOrigine"] ?></textarea>
                 </p>
                 <p>
                     <label style="display: none" for="section"></label>
@@ -79,7 +82,11 @@ $sections = $db->getAllSections();
                             $html = "";
                             foreach($sections as $section) {
 
-                                $html .= "<option value=" . $section["idSection"] .  ">" . $section["secName"] . "</option>";
+                                $html .= "<option "; 
+                                if ($section["idSection"] === $teacher["fkSection"]) {
+                                    $html .= " selected ";
+                                }
+                                $html .= "value=" . $section["idSection"] .  ">" . $section["secName"] . "</option>";
                             }
                             echo $html;
                         ?>
@@ -87,7 +94,7 @@ $sections = $db->getAllSections();
                     </select>
                 </p>
                 <p>
-                    <input type="submit" value="Ajouter">
+                    <input type="submit" value="Modifier">
                     <button type="button" onclick="document.getElementById('form').reset();">Effacer</button>
                 </p>
             </form>

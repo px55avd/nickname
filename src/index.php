@@ -65,20 +65,30 @@ $teachers = $db->getAllTeachers();
                     foreach($teachers as $teacher) {
 
                         $html .= "<tr>";
+
                         $html .= "<td>" . $teacher["teaName"] . " " .  $teacher["teaFirstname"] . "</td>";// rajout du prénom et nom
                         $html .= "<td>" . $teacher["teaNickname"] . "</td>";// rajout du nickname
+
                         $html .= "<td class=\"containerOptions\">";
-                        $html .= "<a href=\"./updateTeacher.php?idteacher=" . $teacher["idTeacher"] . "\">";
-                        $html .= "<img height=\"20em\" src=\"./img/edit.png\" alt=\"edit\>";
+
+                        $html .= "<a href=\"./updateTeacher.php?idTeacher=" . $teacher["idTeacher"] ."\">";
+                        $html .= "<img height=\"20em\" src=\"./img/edit.png\" alt=\"edit\">";
                         $html .= "</a>";
-                        $html .= "<a onClick=\"return confirm('Êtes-vous sûr de vouloir supprimer cet enseignant?');\" href=\"./deleteTeacher.php?idteacher=" . $teacher["idTeacher"] . "\">";
+
+                        $html .= "<a onClick=\"return confirm('Êtes-vous sûr de vouloir supprimer cet enseignant?');\" href=\"./deleteTeacher.php?idTeacher=" . $teacher["idTeacher"] ."\">";
                         $html .= "<img height=\"20em\" src=\"./img/delete.png\" alt=\"delete\">";
                         $html .= "</a>";
+
                         $html .= "<a href=\"./detailTeacher.php?idTeacher=" . $teacher["idTeacher"]."\">";// ajout dans l'url dans l'id teacher avec un POST
                         $html .= "<img height=\"20em\" src=\"./img/detail.png\" alt=\"detail\">";
                         $html .= "</a>";
+
                         $html .= "</td>";
+
                         $html .= "</tr>";
+
+
+                        /*onClick=\"return confirm('Êtes-vous sûr de vouloir supprimer cet enseignant?');*/
                     }
                     echo $html;
                    ?>
