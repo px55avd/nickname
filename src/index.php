@@ -1,12 +1,21 @@
 <?php
 
-include("./Database.php");
+// Vérifie si le fichier 'Database.php' n'existe pas dans le répertoire courant.
+// Si le fichier n'est pas trouvé, l'exécution du script est arrêtée et un message d'erreur est affiché.
+if (!file_exists('./Database.php')) {
 
-$db = new Database();
-$teachers = $db->getAllTeachers();
+    die('Fichier Database.php introuvable.');  // Arrête l'exécution et affiche un message d'erreur.
+}
+
+// Si le fichier 'Database.php' existe, il est inclus dans le script.
+// Cela permet d'utiliser les classes, fonctions ou variables définies dans 'Database.php'.
+include('./Database.php');
+
+$db = new Database();   // Créer une instance de la base de données
+
+$teachers = $db->getAllTeachers(); // Appelle de la fonction de récupération de tous les enseignants
 
 // var_dump($teachers);
-
 
 ?>
 
@@ -71,11 +80,11 @@ $teachers = $db->getAllTeachers();
 
                         $html .= "<td class=\"containerOptions\">";
 
-                        $html .= "<a href=\"./updateTeacher.php?idTeacher=" . $teacher["idTeacher"] ."\">";
+                        $html .= "<a href=\"./updateTeacher.php?idTeacher=" . $teacher["idTeacher"] ."\">"; // ajout dans l'url dans l'id teacher avec un POST
                         $html .= "<img height=\"20em\" src=\"./img/edit.png\" alt=\"edit\">";
                         $html .= "</a>";
 
-                        $html .= "<a onClick=\"return confirm('Êtes-vous sûr de vouloir supprimer cet enseignant?');\" href=\"./deleteTeacher.php?idTeacher=" . $teacher["idTeacher"] ."\">";
+                        $html .= "<a onClick=\"return confirm('Êtes-vous sûr de vouloir supprimer cet enseignant?');\" href=\"./deleteTeacher.php?idTeacher=" . $teacher["idTeacher"] ."\">";   // ajout dans l'url dans l'id teacher avec un POST
                         $html .= "<img height=\"20em\" src=\"./img/delete.png\" alt=\"delete\">";
                         $html .= "</a>";
 

@@ -1,13 +1,25 @@
 <?php 
 
-include("./Database.php");
+// Vérifie si le fichier 'Database.php' n'existe pas dans le répertoire courant.
+// Si le fichier n'est pas trouvé, l'exécution du script est arrêtée et un message d'erreur est affiché.
+if (!file_exists('./Database.php')) {
+
+    die('Fichier Database.php introuvable.');   // Arrête l'exécution et affiche un message d'erreur.
+}
+
+// Si le fichier 'Database.php' existe, il est inclus dans le script.
+// Cela permet d'utiliser les classes, fonctions ou variables définies dans 'Database.php'.
+include('./Database.php');
 
 //récupère l'index du tableau
 $id = $_GET["idTeacher"];
 
-$db = new Database();
-$teacher = $db->getOneTeacher($id);
-$section = $db->getOneSection($teacher["fkSection"]);
+$db = new Database();   // Créer une instance de la base de donnéesS
+
+$teacher = $db->getOneTeacher($id); // Appelle de la fonction pour récupérer un enseigant 
+
+$section = $db->getOneSection($teacher["fkSection"]);   // Appelle de la fonction pour récupérer un section
+
 var_dump($section);
 
 ?>
@@ -84,8 +96,6 @@ var_dump($section);
         </div>
 
     </div>
-
-    
 
     <footer>
         <p>Copyright GCR - bulle web-db - 2022</p>
